@@ -1,20 +1,29 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React , {useLayoutEffect} from 'react'
+import { MEALS } from '../data/dummy_data'
+import MealList from '../components/MealList'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import CustomHeaderButton from '../components/HeaderButton'
 
-function FavouriteScreen() {
+const displayedMeals = MEALS.filter(meal => meal.id === 'm1' || meal.id === 'm3')
+
+function FavouriteScreen(props) {
+  useLayoutEffect(() => {
+    props.navigation.setOptions({
+      headerLeft: () => (
+        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+            <Item 
+                title='Menu'
+                iconName='ios-menu'
+                onPress={() => {props.navigation.toggleDrawer()}}
+            />
+        </HeaderButtons>
+      )
+    })
+  },[])
+
   return (
-    <View style={styles.screen}>
-        <Text>Category Meals Screen</Text>
-    </View>
+    <MealList displayedMeals={displayedMeals} navigation={props.navigation}/>
   )
 }
-
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
-})
 
 export default FavouriteScreen

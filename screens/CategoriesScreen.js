@@ -1,20 +1,54 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, { useLayoutEffect } from 'react'
+import { FlatList, StyleSheet } from 'react-native'
+import { CATEGORIES } from '../data/dummy_data'
+import CategoryGridTile from '../components/CategoryGridTile'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import CustomHeaderButton from '../components/HeaderButton'
 
-function CategoriesScreen() {
+function CategoriesScreen(props) {
+
+  useLayoutEffect(() => {
+    props.navigation.setOptions({
+      headerLeft: () => (
+        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+            <Item 
+                title='Menu'
+                iconName='ios-menu'
+                onPress={() => {props.navigation.toggleDrawer()}}
+            />
+        </HeaderButtons>
+      )
+    })
+  },[])
+
+  const renderGridItem = (itemData) => {
+    return (
+      <CategoryGridTile 
+        title={itemData.item.title}
+        color={itemData.item.color}
+        onSelect={()=> {
+          props.navigation.navigate('CategoryMeals',{
+              categoryId: itemData.item.id,
+            })
+        }}
+      />
+    )
+  }
   return (
-    <View style={styles.screen}>
-        <Text>Category Screen</Text>
-    </View>
+    <FlatList 
+      numColumns={2}
+      data = {CATEGORIES}
+      renderItem={renderGridItem}
+      style={{backgroundColor: 'white'}}
+    />
   )
 }
 
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
+    },
+
 })
 
 export default CategoriesScreen
