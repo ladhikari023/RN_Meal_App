@@ -35,10 +35,8 @@ const appliedFilters = {
 }
 
 useEffect(() => {
-  navigation.navigate('FilterScreen',{
-    save: saveFilter
-  })
-},[saveFilter])
+  console.log(appliedFilters)
+},[appliedFilters])
 
   useLayoutEffect(() => {
     navigation.setOptions({

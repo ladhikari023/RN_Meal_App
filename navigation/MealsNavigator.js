@@ -14,6 +14,7 @@ import MealDetailScreen from '../screens/MealDetailScreen';
 import FavouriteScreen from '../screens/FavouriteScreen';
 import Colors from '../utils/Colors';
 import FilterScreen from '../screens/FiltersScreen';
+import LogInScreen from '../screens/LogInScreen';
 
 const Stack = createStackNavigator()
 const MainNavigator = createDrawerNavigator()
@@ -160,12 +161,20 @@ function MainDrawerNavigator(){
                     }
                 }}
             >
-                <MainNavigator.Screen 
+                {/* <MainNavigator.Screen 
                     name="MealsAndFavs"
                     component={MealsFabTabNavigator}
                     options={{
                         headerShown: false,
                         drawerLabel: 'MEALS & FAVS'
+                    }}
+                /> */}
+                <MainNavigator.Screen 
+                    name="login"
+                    component={LogInScreen}
+                    options={{
+                        headerShown: false,
+                        drawerLabel: 'LOGIN'
                     }}
                 />
                 <MainNavigator.Screen
